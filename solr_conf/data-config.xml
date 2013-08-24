@@ -1,0 +1,7 @@
+<dataConfig>
+   <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://<host>/<database>" user="<username>" password="<password>"/>
+   <document name="voto_survery">
+       <entity name="survey" query="SELECT id AS id, title AS name, title||' '||qs.question_string AS text FROM surveys s JOIN (SELECT survey_id, string_agg(title, ' ') AS question_string FROM questions GROUP BY survey_id) qs ON (qs.survey_id = s.id)">
+       </entity>
+   </document>
+</dataConfig>
