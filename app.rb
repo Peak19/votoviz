@@ -35,7 +35,7 @@ get '/survey/:id' do |id|
     if segment_queries.length > 0
         segment_query='WHERE '+segment_queries.join(' AND ')
     end
-    pg.exec_params("SELECT surveys.title AS survey_title, organisations.org_name, organisations.location as org_loc, questions.id as question_id, questions.title AS question_text, questions.question_num, r.choice_id, choices.name AS choice_name, COUNT(*) as response_count FROM surveys JOIN organisations ON (organisations.id = surveys.org_id) JOIN questions ON (questions.survey_id = surveys.id) JOIN (SELECT * FROM responses "+segment_query+") r ON (r.question_id = questions.id) JOIN choices ON (choices.question_id = questions.id AND choices.id = responses.choice_id) WHERE surveys.id=$1 GROUP BY surveys.title, organisations.org_name, organisations.location, questions.id, questions.title, questions.question_num, r.choice_id, choices.name", [id]) do |result|
+    pg.exec_params("SELECT surveys.title AS survey_title, organisations.org_name, organisations.location as org_loc, questions.id as question_id, questions.title AS question_text, questions.question_num, r.choice_id, choices.name AS choice_name, COUNT(*) as response_count FROM surveys JOIN organisations ON (organisations.id = surveys.org_id) JOIN questions ON (questions.survey_id = surveys.id) JOIN (SELECT * FROM responses "+segment_query+") r ON (r.question_id = questions.id) JOIN choices ON (choices.question_id = questions.id AND choices.id = r.choice_id) WHERE surveys.id=$1 GROUP BY surveys.title, organisations.org_name, organisations.location, questions.id, questions.title, questions.question_num, r.choice_id, choices.name", [id]) do |result|
       result.each do |row|
         survey[:title] ||= row['survey_title']
         survey[:org] ||= row['org_name']
