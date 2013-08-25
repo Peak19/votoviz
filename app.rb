@@ -40,7 +40,7 @@ get '/survey/:id' do |id|
         survey[:title] ||= row['survey_title']
         survey[:org] ||= row['org_name']
         survey[:country] ||= row['org_loc']
-        survey[:questions][Integer(row['question_num'])-1] ||= {:question_num => row['question_num'], :question_text => row['question_text'].sub(/^(Yes|No|All)?Q([0-9]+)-/, ''), :responses => []}
+        survey[:questions][Integer(row['question_num'])-1] ||= {:question_num => row['question_num'], :question_id => row['question_id'], :question_text => row['question_text'].sub(/^(Yes|No|All)?Q([0-9]+)-/, ''), :responses => []}
         /^(Yes|No)?Q([0-9]+)/.match(row['question_text']) do |match|
             survey[:questions][Integer(row['question_num'])-1]['question_depends'] = { :question_id => match[2], :question_response => (match[1] == 'Yes' ? 1:2) } 
         end
