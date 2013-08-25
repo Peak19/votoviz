@@ -1,0 +1,8 @@
+<h1>Survey Search</h1>
+  <form ng-submit="search(query)">
+  <input type="text" ng-model="query">
+  <button type="submit">Search</button>
+  </form>
+  <ul>
+      <li ng-repeat="result in results.docs"><a href="http://can-dev-hack.herokuapp.com/survey.html?survey={{result.id}}" target="_blank">{{result.name}}</a></li>
+  </ul>
