@@ -4,3 +4,4 @@ gem "sinatra"
 gem "haml"
 gem "rsolr"
 gem 'pg'
+gem 'erb'
