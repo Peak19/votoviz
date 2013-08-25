@@ -6,7 +6,7 @@ require 'json'
 require 'pg'
 
 conf = YAML.load_file('./conf.yml')
-db_conf = YAML.load_file('./database.yml')
+db_conf = YAML.load_file('./config/database.yml')
 solr = RSolr.connect :url => conf['solr_hostname']
 pg = PG::Connection.new :host => db_conf['production']['host'], :user => db_conf['production']['username'], :password => db_conf['production']['password'], :dbname => db_conf['production']['database'] 
 
