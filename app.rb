@@ -26,8 +26,8 @@ get '/survey/:id' do |id|
     segment_queries=[]
     if params.has_key?(:segments)
         for segment in params[:segments]
-            if not (Integer(segment[:question_id]) == 0 || Integer(segment[:response_id] == 0)
-                segment_query << 'subscriber_id IN (SELECT subscriber_id FROM responses WHERE choice_id='+segment[:response_id]+' AND question_id='+segment['question_id']+' )'
+            if not (Integer(segment[:question_id]) == 0 || Integer(segment[:response_id] == 0))
+                segment_queries << 'subscriber_id IN (SELECT subscriber_id FROM responses WHERE choice_id='+segment[:response_id]+' AND question_id='+segment['question_id']+' )'
             end
         end
     end
