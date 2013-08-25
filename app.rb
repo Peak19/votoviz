@@ -7,7 +7,7 @@ require 'pg'
 require 'erb'
 
 conf = YAML.load_file('./conf.yml')
-db_conf = YAML.load(ERB.new(File.read('./config/database.yml')))
+db_conf = YAML.load(ERB.new(File.read('./config/database.yml')).result)
 solr = RSolr.connect :url => conf['solr_hostname']
 pg = PG::Connection.new :host => db_conf['production']['host'], :user => db_conf['production']['username'], :password => db_conf['production']['password'], :dbname => db_conf['production']['database'] 
 
